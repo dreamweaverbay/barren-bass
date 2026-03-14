@@ -1,0 +1,1576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Barren River Lake — Bass Fishing Guide</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        /* ============================================================
+           DESIGN SYSTEM — CITL Standard
+           Primary: Navy #2c3e50 | Accent: Teal #0d7377 / #17a2b8
+           Background: dark charcoal-to-slate gradient
+           ============================================================ */
+        :root {
+            --navy:        #2c3e50;
+            --navy-deep:   #1a252f;
+            --teal:        #0d7377;
+            --teal-hover:  #17a2b8;
+            --teal-light:  rgba(13, 115, 119, 0.1);
+            --teal-glow:   rgba(13, 115, 119, 0.25);
+            --white:       #ffffff;
+            --light:       #f8f9fa;
+            --light-mid:   #f0f2f4;
+            --border:      #dee2e6;
+            --border-mid:  #c8ced4;
+            --text:        #2c3e50;
+            --text-mid:    #4a5568;
+            --text-light:  #718096;
+            --success:     #28a745;
+            --warning:     #e67e22;
+            --shadow-sm:   0 2px 8px rgba(0,0,0,0.08);
+            --shadow-md:   0 6px 20px rgba(0,0,0,0.12);
+            --shadow-lg:   0 20px 60px rgba(0,0,0,0.4);
+            --radius:      10px;
+            --radius-sm:   6px;
+            --radius-xs:   4px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: linear-gradient(135deg, #1a252f 0%, #2c3e50 100%);
+            min-height: 100vh;
+            padding: 12px;
+            color: var(--text);
+            line-height: 1.5;
+        }
+
+        /* ── CONTAINER ───────────────────────────────────────────── */
+        .container {
+            max-width: 580px;
+            margin: 0 auto;
+            background: var(--white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+        }
+
+        /* ── HEADER ──────────────────────────────────────────────── */
+        .header {
+            background: linear-gradient(160deg, var(--navy-deep) 0%, var(--navy) 100%);
+            color: var(--white);
+            padding: 24px 22px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -40px; right: -40px;
+            width: 200px; height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(13,115,119,0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--teal), var(--teal-hover), var(--teal));
+        }
+        .header-eyebrow {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1.8px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.55);
+            margin-bottom: 6px;
+        }
+        .header-title {
+            font-size: 20px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .header-icon {
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+        .header-sub {
+            font-size: 12px;
+            color: rgba(255,255,255,0.6);
+            margin-left: 34px;
+        }
+
+        /* ── STEP STRIP (replaces complex progress bar for mobile) ── */
+        .step-strip {
+            display: flex;
+            align-items: stretch;
+            border-bottom: 1px solid var(--border);
+            background: var(--light);
+        }
+        .step-tab {
+            flex: 1;
+            padding: 10px 8px;
+            text-align: center;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: var(--text-light);
+            border-bottom: 3px solid transparent;
+            transition: all 0.25s ease;
+        }
+        .step-tab.active {
+            color: var(--teal);
+            border-bottom-color: var(--teal);
+            background: var(--white);
+        }
+        .step-tab.done {
+            color: var(--navy);
+            border-bottom-color: var(--navy);
+        }
+        .step-tab-num {
+            display: block;
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 1px;
+        }
+
+        /* ── SCREEN TRANSITIONS ──────────────────────────────────── */
+        .content { padding: 18px 18px 28px; }
+
+        .screen { display: none; }
+        .screen.active {
+            display: block;
+            animation: screenIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        @keyframes screenIn {
+            from { opacity: 0; transform: translateY(14px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ── INPUT GROUPS ────────────────────────────────────────── */
+        .input-group { margin-bottom: 22px; }
+        .input-group:last-of-type { margin-bottom: 0; }
+
+        .input-label {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.9px;
+            color: var(--navy);
+            margin-bottom: 9px;
+        }
+        .input-label-icon { font-size: 15px; }
+        .req-dot {
+            width: 5px; height: 5px;
+            border-radius: 50%;
+            background: var(--teal);
+            margin-left: auto;
+            flex-shrink: 0;
+        }
+
+        /* ── BUTTON GRIDS ────────────────────────────────────────── */
+        .btn-grid {
+            display: grid;
+            gap: 7px;
+        }
+        .g-4col  { grid-template-columns: repeat(4, 1fr); }
+        .g-3col  { grid-template-columns: repeat(3, 1fr); }
+        .g-2col  { grid-template-columns: repeat(2, 1fr); }
+        .g-1col  { grid-template-columns: 1fr; }
+
+        /* ── SELECT BUTTONS ──────────────────────────────────────── */
+        .sel-btn {
+            padding: 11px 8px;
+            min-height: 50px;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-sm);
+            background: var(--white);
+            color: var(--text-mid);
+            font-family: 'Open Sans', sans-serif;
+            font-size: 12.5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: border-color 0.18s ease, background 0.18s ease, color 0.18s ease, box-shadow 0.18s ease, transform 0.12s ease;
+            text-align: center;
+            line-height: 1.3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+            position: relative;
+        }
+        .sel-btn:hover {
+            border-color: var(--teal);
+            color: var(--teal);
+            background: var(--teal-light);
+        }
+        .sel-btn:active { transform: scale(0.97); }
+        .sel-btn.selected {
+            background: var(--teal);
+            border-color: var(--teal);
+            color: var(--white);
+            box-shadow: 0 3px 10px var(--teal-glow);
+        }
+        .sel-btn.selected:hover {
+            background: var(--teal-hover);
+            border-color: var(--teal-hover);
+        }
+        /* Month buttons: tighter */
+        .month-btn {
+            min-height: 44px;
+            font-size: 12px;
+            padding: 8px 4px;
+        }
+        /* Time buttons: left-aligned, full row */
+        .time-btn {
+            justify-content: flex-start;
+            padding: 12px 14px;
+            min-height: 52px;
+            font-size: 13.5px;
+            text-align: left;
+        }
+        .time-btn-text {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 1px;
+        }
+        .time-label { font-size: 13px; font-weight: 700; line-height: 1.2; }
+        .time-sub   { font-size: 10.5px; font-weight: 400; opacity: 0.75; }
+        /* Temp buttons */
+        .temp-btn { font-size: 12px; }
+        /* Wide 2-line label buttons */
+        .label-btn {
+            flex-direction: column;
+            gap: 2px;
+            min-height: 56px;
+            font-size: 12.5px;
+        }
+        .label-btn-top { font-weight: 700; font-size: 12.5px; line-height: 1.2; }
+        .label-btn-sub { font-size: 10.5px; font-weight: 400; opacity: 0.75; line-height: 1.2; }
+
+        /* ── WIND DIRECTION EXPANDER ─────────────────────────────── */
+        .wind-dir-wrap { margin-top: 7px; }
+        .wind-dir-toggle {
+            background: none;
+            border: none;
+            padding: 4px 0;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 11.5px;
+            font-weight: 700;
+            color: var(--teal);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            letter-spacing: 0.3px;
+        }
+        .wind-dir-toggle:hover { color: var(--teal-hover); }
+        .wind-dir-toggle svg { transition: transform 0.2s ease; }
+        .wind-dir-toggle.open svg { transform: rotate(90deg); }
+        .wind-dir-grid {
+            display: none;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 7px;
+            margin-top: 7px;
+        }
+        .wind-dir-grid.open { display: grid; animation: screenIn 0.2s ease; }
+
+        /* ── ACTION BUTTONS ──────────────────────────────────────── */
+        .action-row {
+            display: flex;
+            gap: 10px;
+            margin-top: 22px;
+        }
+        .btn-back {
+            padding: 14px 18px;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-sm);
+            background: var(--white);
+            color: var(--text-mid);
+            font-family: 'Open Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+        .btn-back:hover { border-color: var(--navy); color: var(--navy); }
+
+        .btn-next {
+            flex: 1;
+            padding: 14px 18px;
+            border: none;
+            border-radius: var(--radius-sm);
+            background: var(--navy);
+            color: var(--white);
+            font-family: 'Open Sans', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s, box-shadow 0.2s, transform 0.12s;
+            letter-spacing: 0.2px;
+        }
+        .btn-next:hover:not(:disabled) {
+            background: var(--teal);
+            box-shadow: 0 4px 14px var(--teal-glow);
+        }
+        .btn-next:active:not(:disabled) { transform: scale(0.98); }
+        .btn-next:disabled {
+            background: var(--border);
+            color: var(--text-light);
+            cursor: not-allowed;
+        }
+        .btn-recommend {
+            background: var(--teal);
+            font-size: 15px;
+        }
+        .btn-recommend:hover:not(:disabled) {
+            background: var(--teal-hover);
+        }
+
+        /* ── RESULTS ─────────────────────────────────────────────── */
+        .results-banner {
+            background: linear-gradient(135deg, var(--teal) 0%, var(--teal-hover) 100%);
+            color: var(--white);
+            padding: 16px 18px;
+            margin: -18px -18px 18px;
+        }
+        .results-meta {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            opacity: 0.8;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+        }
+        .results-phase {
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        /* Recommendation card */
+        .rec-card {
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            margin-bottom: 12px;
+        }
+        .rec-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 13px 14px;
+            border-bottom: 1px solid var(--border);
+        }
+        .rec-row:last-child { border-bottom: none; }
+        .rec-icon {
+            font-size: 18px;
+            flex-shrink: 0;
+            width: 24px;
+            text-align: center;
+            margin-top: 1px;
+        }
+        .rec-body { flex: 1; min-width: 0; }
+        .rec-label {
+            font-size: 9.5px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.1px;
+            color: var(--teal);
+            margin-bottom: 3px;
+        }
+        .rec-value {
+            font-size: 14.5px;
+            font-weight: 700;
+            color: var(--navy);
+            line-height: 1.35;
+        }
+        .rec-note {
+            font-size: 12px;
+            color: var(--text-mid);
+            margin-top: 2px;
+            line-height: 1.4;
+            font-style: italic;
+        }
+
+        /* Bait list */
+        .bait-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 4px;
+        }
+        .bait-item {
+            background: var(--light);
+            border-radius: var(--radius-sm);
+            padding: 10px 12px;
+            border-left: 3px solid var(--teal);
+        }
+        .bait-name {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 2px;
+        }
+        .bait-color {
+            font-size: 11.5px;
+            font-weight: 700;
+            color: var(--teal);
+            margin-bottom: 3px;
+        }
+        .bait-technique {
+            font-size: 12px;
+            color: var(--text-mid);
+            line-height: 1.45;
+        }
+
+        /* Rationale box */
+        .rationale-box {
+            background: var(--navy);
+            border-radius: var(--radius);
+            padding: 14px 16px;
+            margin-bottom: 12px;
+            color: rgba(255,255,255,0.9);
+        }
+        .rationale-label {
+            font-size: 9.5px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.1px;
+            color: var(--teal-hover);
+            margin-bottom: 7px;
+        }
+        .rationale-text {
+            font-size: 13.5px;
+            line-height: 1.65;
+        }
+
+        /* Condition tags */
+        .tag-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 10px;
+        }
+        .cond-tag {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.18);
+            border-radius: 10px;
+            padding: 3px 9px;
+            font-size: 10.5px;
+            color: rgba(255,255,255,0.82);
+            font-weight: 600;
+        }
+
+        /* Reset button */
+        .btn-reset {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-sm);
+            background: var(--white);
+            color: var(--text-mid);
+            font-family: 'Open Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .btn-reset:hover { border-color: var(--navy); color: var(--navy); background: var(--light); }
+        .btn-reset:active { transform: scale(0.98); }
+
+        /* ── ACCESSIBILITY ───────────────────────────────────────── */
+        .sr-only {
+            position: absolute; width: 1px; height: 1px; padding: 0;
+            margin: -1px; overflow: hidden; clip: rect(0,0,0,0);
+            white-space: nowrap; border: 0;
+        }
+        :focus-visible {
+            outline: 2px solid var(--teal);
+            outline-offset: 2px;
+        }
+
+        /* ── RESPONSIVE ──────────────────────────────────────────── */
+        @media (max-width: 380px) {
+            body { padding: 8px; }
+            .header { padding: 18px 16px 16px; }
+            .content { padding: 14px 14px 24px; }
+            .g-4col  { grid-template-columns: repeat(3, 1fr); }
+            .header-title { font-size: 18px; }
+            .sel-btn { min-height: 46px; }
+        }
+        @media (min-width: 480px) {
+            .g-3col-sm { grid-template-columns: repeat(3, 1fr); }
+        }
+    </style>
+</head>
+
+<body>
+<div class="container" role="main">
+
+    <!-- ── HEADER ─────────────────────────────────────────────────── -->
+    <header class="header">
+        <div class="header-title">
+            <span class="header-icon" aria-hidden="true">🎣</span>
+            Barren River Lake Bass Guide
+        </div>
+    </header>
+
+    <!-- ── STEP TABS ──────────────────────────────────────────────── -->
+    <nav class="step-strip" aria-label="Progress">
+        <div class="step-tab active" id="tab1" aria-current="step">
+            <span class="step-tab-num">1</span>When
+        </div>
+        <div class="step-tab" id="tab2">
+            <span class="step-tab-num">2</span>Conditions
+        </div>
+        <div class="step-tab" id="tab3">
+            <span class="step-tab-num">✓</span>Results
+        </div>
+    </nav>
+
+    <div class="content">
+
+        <!-- ══════════════════════════════════════════════════════════
+             STEP 1 — WHEN ARE YOU FISHING?
+             ══════════════════════════════════════════════════════════ -->
+        <section class="screen active" id="screen-step1" aria-label="Step 1: When are you fishing?">
+
+            <!-- MONTH -->
+            <div class="input-group">
+                <div class="input-label" id="label-month">
+                    <span class="input-label-icon" aria-hidden="true">📅</span>
+                    Month
+                    <span class="req-dot" title="Required" aria-hidden="true"></span>
+                </div>
+                <div class="btn-grid g-4col" id="grid-month" role="group" aria-labelledby="label-month"></div>
+            </div>
+
+            <!-- TIME OF DAY -->
+            <div class="input-group">
+                <div class="input-label" id="label-time">
+                    <span class="input-label-icon" aria-hidden="true">🕐</span>
+                    Time of Day
+                    <span class="req-dot" title="Required" aria-hidden="true"></span>
+                </div>
+                <div class="btn-grid g-1col" id="grid-time" role="group" aria-labelledby="label-time"></div>
+            </div>
+
+            <!-- WATER TEMPERATURE -->
+            <div class="input-group">
+                <div class="input-label" id="label-temp">
+                    <span class="input-label-icon" aria-hidden="true">🌡️</span>
+                    Water Temperature
+                    <span class="req-dot" title="Required" aria-hidden="true"></span>
+                </div>
+                <div class="btn-grid g-2col" id="grid-temp" role="group" aria-labelledby="label-temp"></div>
+            </div>
+
+            <div class="action-row">
+                <button class="btn-next" id="btn-next1" disabled onclick="goToStep2()"
+                    aria-label="Continue to conditions — complete all selections above to proceed">
+                    Conditions →
+                </button>
+            </div>
+        </section>
+
+        <!-- ══════════════════════════════════════════════════════════
+             STEP 2 — CURRENT CONDITIONS
+             ══════════════════════════════════════════════════════════ -->
+        <section class="screen" id="screen-step2" aria-label="Step 2: Current conditions">
+
+            <!-- WATER CLARITY -->
+            <div class="input-group">
+                <div class="input-label" id="label-clarity">
+                    <span class="input-label-icon" aria-hidden="true">👁️</span>
+                    Water Clarity
+                    <span class="req-dot" title="Required" aria-hidden="true"></span>
+                </div>
+                <div class="btn-grid g-2col" id="grid-clarity" role="group" aria-labelledby="label-clarity"></div>
+            </div>
+
+            <!-- SKY / LIGHT -->
+            <div class="input-group">
+                <div class="input-label" id="label-sky">
+                    <span class="input-label-icon" aria-hidden="true">☁️</span>
+                    Sky / Light Conditions
+                    <span class="req-dot" title="Required" aria-hidden="true"></span>
+                </div>
+                <div class="btn-grid g-2col" id="grid-sky" role="group" aria-labelledby="label-sky"></div>
+            </div>
+
+            <!-- WIND -->
+            <div class="input-group">
+                <div class="input-label" id="label-wind">
+                    <span class="input-label-icon" aria-hidden="true">💨</span>
+                    Wind
+                    <span class="req-dot" title="Required" aria-hidden="true"></span>
+                </div>
+                <div class="btn-grid g-3col" id="grid-wind" role="group" aria-labelledby="label-wind"></div>
+                <div class="wind-dir-wrap">
+                    <button class="wind-dir-toggle" id="wind-dir-toggle" onclick="toggleWindDir()"
+                        aria-expanded="false" aria-controls="grid-wind-dir">
+                        <svg width="8" height="12" viewBox="0 0 8 12" fill="currentColor" aria-hidden="true">
+                            <path d="M1 1l6 5-6 5"/>
+                        </svg>
+                        Wind direction (optional)
+                    </button>
+                    <div class="btn-grid wind-dir-grid" id="grid-wind-dir"
+                        role="group" aria-label="Wind direction"></div>
+                </div>
+            </div>
+
+            <!-- WEATHER TREND -->
+            <div class="input-group">
+                <div class="input-label" id="label-trend">
+                    <span class="input-label-icon" aria-hidden="true">📈</span>
+                    Recent Weather Trend
+                    <span class="req-dot" title="Required" aria-hidden="true"></span>
+                </div>
+                <div class="btn-grid g-3col" id="grid-trend" role="group" aria-labelledby="label-trend"></div>
+            </div>
+
+            <div class="action-row">
+                <button class="btn-back" onclick="goToStep1()" aria-label="Back to step 1">← Back</button>
+                <button class="btn-next btn-recommend" id="btn-recommend" disabled
+                    onclick="generateRecommendation()" aria-label="Get fishing recommendation">
+                    🎣 Get Recommendation
+                </button>
+            </div>
+        </section>
+
+        <!-- ══════════════════════════════════════════════════════════
+             RESULTS
+             ══════════════════════════════════════════════════════════ -->
+        <section class="screen" id="screen-results" aria-label="Fishing recommendation" aria-live="polite">
+
+            <div class="results-banner">
+                <div class="results-meta" id="res-meta"></div>
+                <div class="results-phase" id="res-phase"></div>
+            </div>
+
+            <div class="rec-card" role="region" aria-label="Location and depth recommendation">
+                <div class="rec-row">
+                    <div class="rec-icon" aria-hidden="true">📍</div>
+                    <div class="rec-body">
+                        <div class="rec-label">Area of Lake</div>
+                        <div class="rec-value" id="res-area"></div>
+                    </div>
+                </div>
+                <div class="rec-row">
+                    <div class="rec-icon" aria-hidden="true">📏</div>
+                    <div class="rec-body">
+                        <div class="rec-label">Target Depth</div>
+                        <div class="rec-value" id="res-depth"></div>
+                    </div>
+                </div>
+                <div class="rec-row">
+                    <div class="rec-icon" aria-hidden="true">🪨</div>
+                    <div class="rec-body">
+                        <div class="rec-label">Structure to Look For</div>
+                        <div class="rec-value" id="res-structure"></div>
+                    </div>
+                </div>
+                <div class="rec-row">
+                    <div class="rec-icon" aria-hidden="true">🎣</div>
+                    <div class="rec-body" style="width:100%">
+                        <div class="rec-label">Top Bait Recommendations</div>
+                        <div class="bait-list" id="res-baits"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="rationale-box" role="region" aria-label="Why this recommendation works">
+                <div class="rationale-label">🧠 Why This Works</div>
+                <div class="rationale-text" id="res-rationale"></div>
+                <div class="tag-row" id="res-tags"></div>
+            </div>
+
+            <button class="btn-reset" onclick="resetTool()" aria-label="Start over with new conditions">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true">
+                    <path d="M7 1a6 6 0 1 0 5.66 4H11a5 5 0 1 1-4-4.9V2.5L10.5 0 7 0v1z"/>
+                </svg>
+                New Conditions
+            </button>
+        </section>
+
+    </div><!-- /content -->
+</div><!-- /container -->
+
+
+<script>
+'use strict';
+
+// ============================================================
+// INPUT DATA
+// ============================================================
+
+const MONTHS = [
+    { id:'jan', label:'Jan' }, { id:'feb', label:'Feb' }, { id:'mar', label:'Mar' },
+    { id:'apr', label:'Apr' }, { id:'may', label:'May' }, { id:'jun', label:'Jun' },
+    { id:'jul', label:'Jul' }, { id:'aug', label:'Aug' }, { id:'sep', label:'Sep' },
+    { id:'oct', label:'Oct' }, { id:'nov', label:'Nov' }, { id:'dec', label:'Dec' }
+];
+
+const TIMES = [
+    { id:'dawn',      label:'🌅 Dawn / First Light',    sub:'Pre-sunrise' },
+    { id:'morning',   label:'☀️ Morning',               sub:'8 AM – 11 AM' },
+    { id:'midday',    label:'🌞 Midday',                sub:'11 AM – 3 PM' },
+    { id:'afternoon', label:'🌤️ Afternoon',             sub:'3 PM – 6 PM' },
+    { id:'dusk',      label:'🌇 Evening / Dusk',        sub:'Near sunset' }
+];
+
+const TEMPS = [
+    { id:'below50', label:'Below 50°F' },
+    { id:'50-59',   label:'50 – 59°F' },
+    { id:'60-64',   label:'60 – 64°F' },
+    { id:'65-72',   label:'65 – 72°F' },
+    { id:'73-79',   label:'73 – 79°F' },
+    { id:'80-85',   label:'80 – 85°F' },
+    { id:'86plus',  label:'86°F +' }
+];
+
+const CLARITY = [
+    { id:'clear',       topLine:'Clear',       sub:'4+ ft visibility' },
+    { id:'lightStained',topLine:'Lt. Stained', sub:'2 – 4 ft' },
+    { id:'stained',     topLine:'Stained',     sub:'Under 2 ft' },
+    { id:'muddy',       topLine:'Muddy',       sub:'Under 12 in' }
+];
+
+const SKY = [
+    { id:'bluebird',    topLine:'☀️ Bright Sun', sub:'Bluebird sky' },
+    { id:'partlyCloudy',topLine:'⛅ Partly Cloudy', sub:'Mixed clouds' },
+    { id:'overcast',    topLine:'🌥️ Overcast',  sub:'Flat light' },
+    { id:'postFront',   topLine:'🌬️ Post-Front', sub:'Cold front 48 hrs' }
+];
+
+const WIND = [
+    { id:'calm',     topLine:'💤 Calm', sub:'Light / no wind' },
+    { id:'moderate', topLine:'🌬️ Moderate', sub:'' },
+    { id:'heavy',    topLine:'💨 Heavy', sub:'Whitecaps' }
+];
+
+const WIND_DIR = [
+    { id:'windN', label:'N ↓' }, { id:'windS', label:'S ↑' },
+    { id:'windE', label:'E →' }, { id:'windW', label:'W ←' }
+];
+
+const TREND = [
+    { id:'stable',  topLine:'📊 Stable', sub:'3+ days same' },
+    { id:'warming', topLine:'📈 Warming', sub:'Trend up' },
+    { id:'cooling', topLine:'📉 Cooling', sub:'Dropping / front' }
+];
+
+// ============================================================
+// APP STATE
+// ============================================================
+
+const state = {
+    month:         null,
+    timeOfDay:     null,
+    waterTemp:     null,
+    waterClarity:  null,
+    skyCondition:  null,
+    wind:          null,
+    windDirection: null,
+    weatherTrend:  null
+};
+
+// ============================================================
+// BUTTON FACTORY
+// ============================================================
+
+function makeBtn(item, stateKey, extraClass) {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'sel-btn' + (extraClass ? ' ' + extraClass : '');
+    btn.dataset.value = item.id;
+    btn.dataset.key   = stateKey;
+
+    // Build inner HTML
+    if (item.sub !== undefined && extraClass !== 'month-btn') {
+        // Two-line label buttons (clarity, sky, wind, trend)
+        btn.classList.add('label-btn');
+        btn.innerHTML =
+            `<span class="label-btn-top">${item.topLine || item.label}</span>` +
+            (item.sub ? `<span class="label-btn-sub">${item.sub}</span>` : '');
+        btn.setAttribute('aria-label', (item.topLine || item.label) + (item.sub ? ' — ' + item.sub : ''));
+    } else if (item.label && extraClass === 'time-btn') {
+        btn.innerHTML =
+            `<span class="time-btn-text">` +
+            `<span class="time-label">${item.label}</span>` +
+            `<span class="time-sub">${item.sub}</span>` +
+            `</span>`;
+        btn.setAttribute('aria-label', item.label + ' ' + item.sub);
+    } else {
+        btn.textContent = item.label || item.topLine;
+        btn.setAttribute('aria-label', item.label || item.topLine);
+    }
+
+    btn.setAttribute('aria-pressed', 'false');
+    btn.setAttribute('role', 'button');
+
+    btn.onclick = () => selectBtn(btn, stateKey, item.id);
+    btn.onkeydown = e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            selectBtn(btn, stateKey, item.id);
+        }
+    };
+    return btn;
+}
+
+function fillGrid(gridId, items, stateKey, btnClass) {
+    const grid = document.getElementById(gridId);
+    if (!grid) return;
+    grid.innerHTML = '';
+    items.forEach(item => grid.appendChild(makeBtn(item, stateKey, btnClass)));
+}
+
+// ============================================================
+// SELECTION HANDLER
+// ============================================================
+
+function selectBtn(btn, stateKey, value) {
+    // Clear all buttons in same group
+    document.querySelectorAll(`[data-key="${stateKey}"]`).forEach(b => {
+        b.classList.remove('selected');
+        b.setAttribute('aria-pressed', 'false');
+    });
+    btn.classList.add('selected');
+    btn.setAttribute('aria-pressed', 'true');
+    state[stateKey] = value;
+    validate();
+}
+
+function validate() {
+    const step1ok = state.month && state.timeOfDay && state.waterTemp;
+    const step2ok = state.waterClarity && state.skyCondition && state.wind && state.weatherTrend;
+    document.getElementById('btn-next1').disabled     = !step1ok;
+    document.getElementById('btn-recommend').disabled = !step2ok;
+}
+
+// ============================================================
+// NAVIGATION
+// ============================================================
+
+function showScreen(id) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function updateTabs(step) {
+    ['tab1','tab2','tab3'].forEach((id, i) => {
+        const tab = document.getElementById(id);
+        tab.classList.remove('active', 'done');
+        if      (i + 1 === step)  tab.classList.add('active');
+        else if (i + 1 < step)    tab.classList.add('done');
+    });
+}
+
+function goToStep2() {
+    showScreen('screen-step2');
+    updateTabs(2);
+}
+
+function goToStep1() {
+    showScreen('screen-step1');
+    updateTabs(1);
+}
+
+function toggleWindDir() {
+    const grid   = document.getElementById('grid-wind-dir');
+    const toggle = document.getElementById('wind-dir-toggle');
+    const isOpen = grid.classList.toggle('open');
+    toggle.classList.toggle('open', isOpen);
+    toggle.setAttribute('aria-expanded', String(isOpen));
+    if (!isOpen) {
+        state.windDirection = null;
+        document.querySelectorAll('[data-key="windDirection"]').forEach(b => {
+            b.classList.remove('selected');
+            b.setAttribute('aria-pressed', 'false');
+        });
+    }
+}
+
+function resetTool() {
+    Object.keys(state).forEach(k => { state[k] = null; });
+    document.querySelectorAll('.sel-btn').forEach(b => {
+        b.classList.remove('selected');
+        b.setAttribute('aria-pressed', 'false');
+    });
+    document.getElementById('btn-next1').disabled     = true;
+    document.getElementById('btn-recommend').disabled = true;
+    // Close wind dir
+    document.getElementById('grid-wind-dir').classList.remove('open');
+    document.getElementById('wind-dir-toggle').classList.remove('open');
+    document.getElementById('wind-dir-toggle').setAttribute('aria-expanded', 'false');
+    showScreen('screen-step1');
+    updateTabs(1);
+}
+
+// ============================================================
+// GENERATE & RENDER
+// ============================================================
+
+function generateRecommendation() {
+    const rec = getRecommendation(state);
+    renderResults(rec);
+    showScreen('screen-results');
+    updateTabs(3);
+}
+
+function renderResults(rec) {
+    const monthLabel = MONTHS.find(m => m.id === state.month)?.label  || '';
+    const timeLabel  = TIMES .find(t => t.id === state.timeOfDay)?.label.replace(/[🌅☀️🌞🌤️🌇]\s*/u, '') || '';
+    const tempLabel  = TEMPS .find(t => t.id === state.waterTemp)?.label || '';
+
+    document.getElementById('res-meta').textContent  = `${monthLabel} · ${timeLabel} · ${tempLabel}`;
+    document.getElementById('res-phase').textContent = rec.seasonPhase;
+    document.getElementById('res-area').textContent  = rec.area;
+    document.getElementById('res-depth').textContent = rec.depth;
+    document.getElementById('res-structure').textContent = rec.structure;
+
+    // Baits
+    const baitContainer = document.getElementById('res-baits');
+    baitContainer.innerHTML = '';
+    rec.baits.forEach(b => {
+        const item = document.createElement('div');
+        item.className = 'bait-item';
+        item.innerHTML =
+            `<div class="bait-name">${b.name}</div>` +
+            `<div class="bait-color">🎨 ${b.color}</div>` +
+            `<div class="bait-technique">${b.technique}</div>`;
+        baitContainer.appendChild(item);
+    });
+
+    // Rationale
+    document.getElementById('res-rationale').textContent = rec.rationale;
+
+    // Tags
+    const tagContainer = document.getElementById('res-tags');
+    tagContainer.innerHTML = '';
+    (rec.tags || []).forEach(t => {
+        const tag = document.createElement('span');
+        tag.className = 'cond-tag';
+        tag.textContent = t;
+        tagContainer.appendChild(tag);
+    });
+}
+
+// ============================================================
+// ─────────────────────────────────────────────────────────────
+//   RECOMMENDATION ENGINE  (Phase 1 — pure JS decision logic)
+//   All knowledge from Section 2 of the project brief.
+//   REPLACE this function body only in Phase 2.
+// ─────────────────────────────────────────────────────────────
+// ============================================================
+
+function getRecommendation(inputs) {
+    const { month, timeOfDay, waterTemp, waterClarity, skyCondition, wind, weatherTrend } = inputs;
+
+    // ── Determine calendar season ──────────────────────────────────
+    const SEASON_MAP = {
+        jan:'winter', feb:'winter', mar:'spring',
+        apr:'spring', may:'spring', jun:'summer',
+        jul:'summer', aug:'summer', sep:'fall',
+        oct:'fall',   nov:'fall',   dec:'winter'
+    };
+    const calSeason = SEASON_MAP[month] || 'summer';
+    const isFall    = calSeason === 'fall';
+    const isSpring  = calSeason === 'spring';
+    const isWinter  = calSeason === 'winter';
+
+    // ── Condition flags ────────────────────────────────────────────
+    const isPostFront    = skyCondition === 'postFront';
+    const isCooling      = weatherTrend === 'cooling';
+    const isWarming      = weatherTrend === 'warming';
+    const isHeavyWind    = wind === 'heavy';
+    const isModerateWind = wind === 'moderate';
+    const isClearWater   = waterClarity === 'clear' || waterClarity === 'lightStained';
+    const isMuddyWater   = waterClarity === 'muddy';
+    const isBluebird     = skyCondition === 'bluebird';
+    const isOvercast     = skyCondition === 'overcast';
+
+    // Post-front or cooling (outside active spawn) → finesse mode
+    const isFinesse = isPostFront || (isCooling && waterTemp !== '65-72' && waterTemp !== '60-64');
+
+    // Topwater only at dawn/dusk, warm water, no front
+    const topwaterViable =
+        (timeOfDay === 'dawn' || timeOfDay === 'dusk') &&
+        ['65-72','73-79','80-85','86plus'].includes(waterTemp) &&
+        !isPostFront;
+
+    // ── Color palette from clarity ─────────────────────────────────
+    const C = buildColorPalette(waterClarity);
+
+    // ── Base location from temperature × calendar season ──────────
+    let seasonPhase, area, depth, structure;
+
+    if (waterTemp === 'below50') {
+        seasonPhase = isWinter ? 'Winter — Deep Structure' : 'Late Fall / Pre-Winter';
+        area      = 'Main lake near dam';
+        depth     = '25 – 45 ft';
+        structure = 'Channel bends, deep rocky points, bluff walls';
+
+    } else if (waterTemp === '50-59') {
+        if (isFall) {
+            seasonPhase = 'Late Fall — Deep Transition';
+            area        = 'Main lake points, lower creek arm mouths';
+            depth       = '20 – 35 ft';
+            structure   = 'Deep rocky points, channel transitions, bluff walls';
+        } else {
+            seasonPhase = 'Late Winter / Early Prespawn';
+            area        = 'Main lake points, creek arm mouths';
+            depth       = '15 – 25 ft';
+            structure   = 'Hard-bottom points, ledge transitions to deeper water';
+        }
+
+    } else if (waterTemp === '60-64') {
+        if (isFall) {
+            seasonPhase = 'Fall Transition — Shad Movement';
+            area        = 'Creek arm mouths, main lake points';
+            depth       = '10 – 20 ft';
+            structure   = 'Rocky points with deep water access, channel swings';
+        } else {
+            seasonPhase = 'Prespawn — Active Staging';
+            area        = 'Creek arm mouths, first major points inside each arm';
+            depth       = '10 – 20 ft';
+            structure   = 'Rocky points, stumps on ledge edges, hard-bottom transitions';
+        }
+
+    } else if (waterTemp === '65-72') {
+        if (isFall) {
+            seasonPhase = 'Fall Transition — Bass Moving Out';
+            area        = 'Creek arm mouths, main lake points';
+            depth       = '8 – 18 ft';
+            structure   = 'Rocky points with channel access, creek arm mouths, bluff ends';
+        } else {
+            seasonPhase = 'Pre-Spawn / Spawn';
+            area        = 'Mid to back of creek arms';
+            depth       = '2 – 15 ft';
+            structure   = 'Flat hard bottom, isolated stumps, bedding areas';
+        }
+
+    } else if (waterTemp === '73-79') {
+        if (isFall) {
+            seasonPhase = 'Early Fall — Shad Schools Active';
+            area        = 'Creek arm backs and mouths, main lake points near shad';
+            depth       = '3 – 15 ft';
+            structure   = 'Shad schools on points and in creek backs; secondary points';
+        } else {
+            seasonPhase = 'Post-Spawn / Early Summer';
+            area        = 'First structure outside spawning coves';
+            depth       = '8 – 18 ft';
+            structure   = 'Points adjacent to coves, bluff ends, first depth transitions';
+        }
+
+    } else if (waterTemp === '80-85') {
+        seasonPhase = 'Summer — Ledge Pattern';
+        area        = 'Main lake ledges, channel edges';
+        depth       = '15 – 30 ft';
+        structure   = 'Ledge drops, channel swings, submerged points';
+
+    } else { // 86+
+        seasonPhase = 'Peak Summer — Deep & Shade';
+        area        = 'Main lake deep structure; docks and bluff shade';
+        depth       = '20 – 40 ft';
+        structure   = 'Channel drops, dock shade, suspended fish zones';
+    }
+
+    // ── Area overrides from wind / time ────────────────────────────
+    if (isHeavyWind) {
+        area      = ['below50','50-59'].includes(waterTemp)
+            ? 'Protected main-lake coves, lower creek arm mouths'
+            : 'Protected creek arms; transition points at arm mouths';
+        structure = structure + '; seek wind-sheltered banks';
+    }
+
+    if (timeOfDay === 'midday' && ['80-85','86plus'].includes(waterTemp)) {
+        area      = 'Marina docks, bridge pilings, bluff shade — then return to main-lake ledges';
+        structure = 'Shaded structure midday; channel/ledge structure morning and evening';
+    }
+
+    // ── Build baits ────────────────────────────────────────────────
+    let baits;
+    if (isFinesse) {
+        baits = buildFinesseBaits(waterTemp, C, isClearWater);
+    } else if (topwaterViable) {
+        baits = buildTopwaterBaits(waterTemp, C, timeOfDay, isClearWater);
+    } else if (isFall && ['65-72','73-79','60-64'].includes(waterTemp)) {
+        baits = buildFallBaits(waterTemp, C, isClearWater, isModerateWind);
+    } else {
+        baits = buildSeasonalBaits(waterTemp, C, isClearWater, timeOfDay, isBluebird, isModerateWind);
+    }
+    baits = baits.slice(0, 3);
+
+    // ── Condition tags ─────────────────────────────────────────────
+    const tags = [];
+    if (isPostFront)     tags.push('Post-front: finesse only');
+    else if (isCooling)  tags.push('Cooling: slower & deeper');
+    else if (isWarming)  tags.push('Warming: fish moving shallower');
+    if (topwaterViable)  tags.push(`${timeOfDay === 'dawn' ? 'Dawn' : 'Dusk'} topwater window`);
+    if (isModerateWind)  tags.push('Wind: work windward banks');
+    if (isHeavyWind)     tags.push('Heavy wind: stay in protected arms');
+    if (isMuddyWater)    tags.push('Muddy: add rattles');
+    if (isBluebird)      tags.push('Bluebird: fish tight to cover');
+    if (isOvercast)      tags.push('Overcast: fish roaming wider');
+    if (weatherTrend === 'stable') tags.push('Stable pattern: repeat what works');
+
+    // ── Rationale ──────────────────────────────────────────────────
+    const rationale = buildRationale(
+        waterTemp, calSeason, isFall, timeOfDay,
+        isPostFront, isFinesse, isWarming, isModerateWind,
+        isOvercast, isBluebird, topwaterViable
+    );
+
+    return { seasonPhase, area, depth, structure, baits, rationale, tags };
+}
+
+// ──────────────────────────────────────────────────────────────
+// COLOR PALETTE — driven by water clarity
+// ──────────────────────────────────────────────────────────────
+function buildColorPalette(clarity) {
+    switch (clarity) {
+        case 'clear':
+            return { jig:'Brown/green pumpkin', soft:'Green pumpkin', crank:'Shad / natural crawfish',
+                     spinner:'White or gold blade', topwater:'Bone or chrome', rattle: false };
+        case 'lightStained':
+            return { jig:'Brown/green pumpkin w/ chartreuse tip', soft:'Green pumpkin', crank:'Chartreuse-accent shad or brown crawfish',
+                     spinner:'Chartreuse/white or gold', topwater:'White or bone', rattle: false };
+        case 'stained':
+            return { jig:'Black/blue', soft:'Chartreuse', crank:'Chartreuse/white or bright orange',
+                     spinner:'Chartreuse/white', topwater:'White or chartreuse', rattle: true };
+        case 'muddy':
+            return { jig:'Black/blue', soft:'Chartreuse/white', crank:'Bright red or chartreuse/white',
+                     spinner:'Chartreuse/white', topwater:'White or chartreuse', rattle: true };
+        default:
+            return { jig:'Green pumpkin', soft:'Green pumpkin', crank:'Shad',
+                     spinner:'White', topwater:'White', rattle: false };
+    }
+}
+
+// ──────────────────────────────────────────────────────────────
+// BAIT BUILDERS
+// ──────────────────────────────────────────────────────────────
+
+function buildFinesseBaits(waterTemp, C, isClear) {
+    const baits = [];
+    const rattleNote = C.rattle ? '; add rattle to any hollow-body bait' : '';
+
+    if (isClear) {
+        baits.push({
+            name: 'Drop Shot',
+            color: C.soft + ' or natural shad',
+            technique: 'Hover 8 – 12" off bottom on points and ledges; minimal movement; let fish come to it — don\'t rush'
+        });
+        baits.push({
+            name: 'Ned Rig',
+            color: C.soft,
+            technique: 'Dead-stick on rocky bottom; tiny lift-and-drop; finesse favorite after a front — small profile, slow fall'
+        });
+        baits.push({
+            name: 'Wacky Rig (Senko-style)',
+            color: 'Green pumpkin or watermelon',
+            technique: 'Slow shimmying fall; do not impart action; this is the bait when nothing else moves fish' + rattleNote
+        });
+    } else {
+        baits.push({
+            name: 'Ned Rig',
+            color: C.soft,
+            technique: 'Slow drag on hard bottom; pause 5 – 10 seconds between hops; smaller profile triggers reluctant biters'
+        });
+        baits.push({
+            name: 'Shakey Head',
+            color: C.soft,
+            technique: 'Drag and subtle shake on rocky points; stay low on the bottom; resist the urge to move it fast'
+        });
+        baits.push({
+            name: 'Casting Jig (light, ⅜ oz)',
+            color: C.jig,
+            technique: 'Slow crawl on hard structure; long pauses; pork/craw trailer adds subtle action in stained water' + rattleNote
+        });
+    }
+    return baits;
+}
+
+function buildTopwaterBaits(waterTemp, C, timeOfDay, isClear) {
+    const baits = [];
+    const moment = timeOfDay === 'dawn' ? 'Hit this hard before the sun clears the horizon'
+                                        : 'Work this as light fades and bass push shallow';
+
+    baits.push({
+        name: 'Walking Topwater (Zara Spook / Whopper Plopper)',
+        color: C.topwater,
+        technique: `"Walk the dog" along main lake points, bluff ends, and near channel breaks. ${moment} — window is brief but productive`
+    });
+
+    if (['73-79','80-85'].includes(waterTemp)) {
+        baits.push({
+            name: 'Swimbait / Paddle Tail',
+            color: isClear ? 'Shad or white' : 'White or chartreuse',
+            technique: 'When topwater bite slows, drop to 8 – 15 ft and swim the same structure; matches shad forage exactly'
+        });
+        baits.push({
+            name: 'Popper',
+            color: C.topwater,
+            technique: 'Alternate short pops with pauses near dock edges and points; covers fish that don\'t respond to the walking bait'
+        });
+    } else if (waterTemp === '86plus') {
+        baits.push({
+            name: 'Deep-Diving Crankbait',
+            color: isClear ? 'Natural shad' : C.crank,
+            technique: 'Transition off topwater quickly as sun hits; grind channel ledges and main lake points at 20 – 35 ft'
+        });
+        baits.push({
+            name: 'Football Jig',
+            color: C.jig,
+            technique: 'After topwater window closes; slow drag on deep main lake structure at 30 – 40 ft channel edges'
+        });
+    } else if (waterTemp === '65-72') {
+        baits.push({
+            name: 'Buzzbait',
+            color: C.topwater,
+            technique: 'Burn along shallow banks and over flat hard bottom near bedding areas; triggers reaction from territorial fish'
+        });
+        baits.push({
+            name: 'Squarebill Crankbait',
+            color: isClear ? 'Natural crawfish' : C.crank,
+            technique: 'Subsurface follow-up when topwater slows; deflect off stumps and rocky banks in 3 – 8 ft'
+        });
+    }
+    return baits;
+}
+
+function buildFallBaits(waterTemp, C, isClear, isModerateWind) {
+    const baits = [];
+    const rNote = C.rattle ? ' with rattle' : '';
+
+    if (waterTemp === '73-79') {
+        // Fall shad schools — aggressive, reaction bite
+        baits.push({
+            name: 'Lipless Crankbait (⅜ – ½ oz)',
+            color: isClear ? 'Chrome/shad' : 'Chartreuse',
+            technique: 'Cast to visible shad schools or work main lake points and creek mouths; rip off bottom or yo-yo it on a controlled fall' + rNote
+        });
+        baits.push({
+            name: 'Swimbait / Paddle Tail',
+            color: isClear ? 'Shad or white' : 'White or chartreuse',
+            technique: 'Match the shad size exactly; swim through and under breaking fish; vary the depth until you find where they\'re feeding'
+        });
+        baits.push({
+            name: 'Squarebill Crankbait',
+            color: isClear ? 'Shad or natural' : C.crank,
+            technique: 'Along shallow points and creek arm transitions; deflect off any hard cover; fall bass chase shad into the shallows'
+        });
+
+    } else if (waterTemp === '65-72') {
+        // Fall transition — bass moving OUT of arms toward main lake
+        baits.push({
+            name: 'Lipless Crankbait',
+            color: isClear ? 'Chrome/shad or red' : 'Chartreuse',
+            technique: 'Work main lake points and creek arm mouths on a varied retrieve; bass are staging here chasing baitfish moving out' + rNote
+        });
+        baits.push({
+            name: 'Spinnerbait',
+            color: C.spinner,
+            technique: 'Slow-roll along transition points at arm mouths; steady retrieve keeps it in the 8 – 15 ft zone; excellent in low-light'
+        });
+        baits.push({
+            name: 'Jig (casting)',
+            color: C.jig,
+            technique: 'Rocky points at arm mouths; 10 – 18 ft; crawfish trailer; bass are feeding hard before water cools further'
+        });
+
+    } else if (waterTemp === '60-64') {
+        // Fall 60-64 — later fall, shad movement into main lake
+        baits.push({
+            name: 'Spinnerbait',
+            color: C.spinner,
+            technique: 'Slow-roll over transition points at arm mouths and main lake points; blade vibration keys neutral fish'
+        });
+        if (isModerateWind) {
+            baits.push({
+                name: 'Lipless Crankbait',
+                color: isClear ? 'Chrome/shad' : 'Chartreuse',
+                technique: 'Wind activates the shad-chasing bite; work windward points aggressively' + rNote
+            });
+        } else {
+            baits.push({
+                name: 'Squarebill Crankbait',
+                color: isClear ? 'Shad or crawfish' : C.crank,
+                technique: 'Deflect off rocky main lake points; fall bass hitting reaction baits on transitions'
+            });
+        }
+        baits.push({
+            name: 'Jig (casting)',
+            color: C.jig,
+            technique: 'Hard bottom points at arm mouths and main lake; 12 – 20 ft; crawfish trailer; late-fall feed-up bite'
+        });
+    }
+    return baits;
+}
+
+function buildSeasonalBaits(waterTemp, C, isClear, timeOfDay, isBluebird, isModerateWind) {
+    const baits = [];
+
+    switch (waterTemp) {
+
+        case 'below50':
+            baits.push({
+                name: 'Football Jig (¾ – 1 oz)',
+                color: C.jig,
+                technique: 'Slow drag on deep channel bends and ledges at 25 – 45 ft; let it sit; cold bass will not chase — put it on them'
+            });
+            baits.push({
+                name: 'Drop Shot',
+                color: C.soft + ' or natural shad',
+                technique: 'Hover over suspended fish or bottom; 6 – 12" leader; minimal movement; winter finesse at its simplest'
+            });
+            baits.push({
+                name: 'Deep-Diving Crankbait',
+                color: isClear ? 'Shad or natural' : C.crank,
+                technique: 'Slow-roll along channel ledges; bump the bottom; erratic contact triggers neutral fish — most productive midday'
+            });
+            break;
+
+        case '50-59':
+            baits.push({
+                name: 'Football Jig',
+                color: C.jig,
+                technique: 'Main lake points and arm mouths at 15 – 25 ft; staging fish on transitions; slower retrieve than fall'
+            });
+            baits.push({
+                name: 'Deep-Diving Crankbait',
+                color: isClear ? 'Shad or crawfish' : C.crank,
+                technique: 'Transition points at creek mouths; bump hard bottom; slightly faster retrieve as fish begin responding'
+            });
+            baits.push({
+                name: 'Spinnerbait',
+                color: C.spinner,
+                technique: 'Slow-roll along first points at arm mouths; fish beginning to stage prespawn; blade vibration triggers strikes'
+            });
+            break;
+
+        case '60-64':
+            if (isModerateWind) {
+                baits.push({
+                    name: 'Spinnerbait',
+                    color: C.spinner,
+                    technique: 'Windward points at arm mouths; baitfish concentrating; aggressive reaction bite building — cover water fast'
+                });
+            } else {
+                baits.push({
+                    name: 'Squarebill Crankbait',
+                    color: isClear ? 'Natural crawfish' : C.crank,
+                    technique: 'Deflect off rocky points and stumps at arm mouths; 10 – 20 ft staging zone; covering water efficiently'
+                });
+            }
+            baits.push({
+                name: 'Casting Jig',
+                color: C.jig,
+                technique: 'Hop on hard-bottom staging points; crawfish trailer; bass are feeding aggressively pre-spawn — one of the best jig bites of the year'
+            });
+            baits.push({
+                name: 'Chatterbait',
+                color: isClear ? 'Green pumpkin or natural' : 'Chartreuse/white',
+                technique: 'Swim through staging areas; crawfish trailer; covers transition zones at 10 – 18 ft; triggers feed-up prespawn bass'
+            });
+            break;
+
+        case '65-72':
+            if (isBluebird) {
+                baits.push({
+                    name: 'Wacky Rig (Senko-style)',
+                    color: isClear ? 'Green pumpkin or watermelon' : 'Black',
+                    technique: 'Slow fall directly over beds and flat hard bottom; do not work it — let it fall and sit; bed-fishing 101'
+                });
+                baits.push({
+                    name: 'Ned Rig',
+                    color: isClear ? C.soft : 'Black/green',
+                    technique: 'Dead-stick near visible beds on bluebird days; small profile; stay patient and precise over each spot'
+                });
+            } else {
+                baits.push({
+                    name: 'Wacky Rig (Senko-style)',
+                    color: isClear ? 'Green pumpkin or watermelon' : 'Black',
+                    technique: 'Slow fall on flat hard bottom and bedding areas; the premier spawn bait on Barren River — subtle action, deadly results'
+                });
+                baits.push({
+                    name: 'Squarebill Crankbait',
+                    color: isClear ? 'Natural crawfish' : C.crank,
+                    technique: 'Deflect off isolated stumps and hard bottom; 3 – 8 ft; reaction strike from territorial bed-guarding fish'
+                });
+            }
+            baits.push({
+                name: 'Casting Jig',
+                color: C.jig,
+                technique: 'Crawl on flat hard bottom near stumps and beds; 2 – 10 ft; crawfish imitation is exceptionally effective during spawn'
+            });
+            break;
+
+        case '73-79':
+            baits.push({
+                name: 'Swimbait / Paddle Tail',
+                color: isClear ? 'Shad or white' : 'White or chartreuse',
+                technique: 'Swim along bluff ends and points adjacent to spawning coves; match shad size; 8 – 15 ft recovery zone'
+            });
+            baits.push({
+                name: isModerateWind ? 'Chatterbait / Spinnerbait' : 'Squarebill Crankbait',
+                color: isModerateWind ? C.spinner : (isClear ? 'Shad or natural' : C.crank),
+                technique: isModerateWind
+                    ? 'Wind activates the bite; run these on windward points and bluff ends; post-spawn bass feeding up aggressively'
+                    : 'Cover post-spawn points quickly; deflect off hard structure; 5 – 12 ft; fish are aggressive as appetite returns'
+            });
+            baits.push({
+                name: 'Casting Jig',
+                color: C.jig,
+                technique: 'Probe points adjacent to spawning coves; post-spawn fish recovering and starting to feed; slower than prespawn pace'
+            });
+            break;
+
+        case '80-85':
+            baits.push({
+                name: 'Deep-Diving Crankbait (10 – 20 ft range)',
+                color: isClear ? 'Shad or chartreuse/blue' : C.crank,
+                technique: 'Grind main lake ledges and channel swings at 15 – 25 ft; stay on the bottom; summer ledge staple — cover the zone methodically'
+            });
+            baits.push(timeOfDay === 'midday' ? {
+                name: 'Drop Shot',
+                color: isClear ? 'Natural shad' : C.soft,
+                technique: 'Target fish suspended under dock shade or against bluff faces; hover at 10 – 20 ft; finesse midday when bite is tough'
+            } : {
+                name: 'Carolina Rig',
+                color: isClear ? 'Green pumpkin creature' : 'Chartreuse creature',
+                technique: 'Drag on deep points and ledge transitions at 18 – 28 ft; covers bottom structure slowly and methodically'
+            });
+            baits.push({
+                name: 'Football Jig',
+                color: C.jig,
+                technique: 'Slow hop on channel bends and deep ledges at 20 – 30 ft; bass stack on this structure all summer — find it and you find them'
+            });
+            break;
+
+        default: // 86+
+            if (timeOfDay === 'midday') {
+                baits.push({
+                    name: 'Drop Shot',
+                    color: isClear ? 'Natural shad or green pumpkin' : C.soft,
+                    technique: 'Dock shade and bluff faces at 15 – 25 ft; bass parked under shade not actively feeding — precise, slow presentation only'
+                });
+                baits.push({
+                    name: 'Football Jig',
+                    color: C.jig,
+                    technique: 'Deep channel at 30 – 40 ft; drag extremely slowly; peak-heat bass are lethargic — finesse or go home'
+                });
+                baits.push({
+                    name: 'Shakey Head',
+                    color: isClear ? C.soft : C.soft,
+                    technique: 'Dock edges; dead-stick with minimal shakes; small profile works when nothing else moves heat-suppressed fish'
+                });
+            } else {
+                baits.push({
+                    name: 'Deep-Diving Crankbait',
+                    color: isClear ? 'Shad or natural' : C.crank,
+                    technique: 'Main lake ledges and channel edges at 20 – 35 ft; grind the bottom on channel swings; morning and evening windows best'
+                });
+                baits.push({
+                    name: 'Football Jig',
+                    color: C.jig,
+                    technique: 'Channel bends and submerged points at 25 – 40 ft; slow drag with long pauses; this is the primary summer deep pattern'
+                });
+                baits.push({
+                    name: 'Carolina Rig',
+                    color: isClear ? 'Green pumpkin or natural creature' : 'Chartreuse creature',
+                    technique: 'Drag on deep main lake points and channel transitions; covers bottom at depth efficiently; summer workhorse'
+                });
+            }
+    }
+    return baits;
+}
+
+// ──────────────────────────────────────────────────────────────
+// RATIONALE BUILDER
+// ──────────────────────────────────────────────────────────────
+
+function buildRationale(waterTemp, calSeason, isFall, timeOfDay, isPostFront, isFinesse, isWarming, isModerateWind, isOvercast, isBluebird, topwaterViable) {
+
+    const base = {
+        'below50': 'Cold water drops bass metabolism to near-zero — they stack on the deepest available structure and will only bite when a bait drifts directly to them. Patience is everything; long pauses between movements trigger more strikes than any action.',
+        '50-59': isFall
+            ? 'As water cools toward 50°F in fall, bass are making their final move toward deep winter structure. They\'re still feeding but slowing down — work main lake points and arm mouths methodically before they disappear to deep water.'
+            : 'Bass are awakening from winter and staging for prespawn, moving from deep winter haunts toward main lake points and creek arm mouths. They\'re sluggish but responding to slow-moving bait on hard-bottom structure.',
+        '60-64': isFall
+            ? 'Fall transition is underway — bass are following shad schools out of creek arms and staging on main lake points. This is a prime window: fish are feeding actively and moving predictably as baitfish concentrate on transitions.'
+            : 'Prespawn staging is fully active. Bass are stacking on the first rocky points at creek arm mouths, feeding aggressively before moving shallow to spawn. This is one of the best reaction-bait windows of the year on Barren River.',
+        '65-72': isFall
+            ? 'Bass are transitioning out of creek arms as shad schools move toward main lake. Unlike spring at this temperature, fish are moving outward — target arm mouths and main lake points, not the backs of coves.'
+            : 'Spawn phase. Bass have moved into the backs of creek arms to bed on flat hard bottom. Largemouth are shallow and visible but territorial — they may pick up a bait out of aggression more than hunger. Target isolated stumps and flat hard-bottom areas.',
+        '73-79': isFall
+            ? 'This is one of the best days to be on Barren River. Shad schools are active and bass are aggressively chasing them in the backs of creek arms and on main lake points. Watch for surface activity — topwater blowups are possible all day.'
+            : 'Post-spawn recovery. Bass have left the beds and relate to the first structure outside spawning coves — adjacent points and bluff ends. Their appetite is rebuilding fast; they\'re chasing shad and hitting moving baits again.',
+        '80-85': 'Classic summer ledge pattern on Barren River. Bass have followed shad schools onto main lake structure and channel ledges. Find the right ledge and you can load the boat. Depth and precision matter more than bait selection at this point.',
+        '86plus': 'Peak summer stress. Bass push to their deepest haunts or hold tight to dock shade to escape the heat. Feeding windows are compressed — dawn and dusk offer the best topwater action, then back to deep and slow. Midday: go to the shade and finesse.'
+    };
+
+    let r = base[waterTemp] || 'Match your presentation to the season and trust the conditions.';
+
+    // Modifier sentence
+    if (isPostFront) {
+        r += ' A recent cold front has put bass in a neutral-to-negative mood. They\'ll retreat to the deepest available structure and require finesse — smaller profile, slower movement, natural colors, and patience.';
+    } else if (isFinesse) {
+        r += ' The cooling trend is pulling fish deeper and suppressing activity. Finesse presentations will consistently outperform reaction baits until conditions stabilize for at least two to three days.';
+    } else if (topwaterViable) {
+        r += ` The ${timeOfDay === 'dawn' ? 'early morning' : 'evening'} low-light window creates a brief but aggressive topwater bite along banks and points. Hit it hard first — this window is short. When it dies, transition quickly to the subsurface presentations listed.`;
+    } else if (isWarming) {
+        r += ' The warming trend is progressively activating fish. Today\'s best bite may be shallower and more aggressive than the temperature alone suggests — trust the trend and fish a touch shallower than feels right.';
+    } else if (isModerateWind) {
+        r += ' Moderate wind is pushing baitfish against windward banks and points, concentrating the food chain. Bass will be more aggressive and slightly off-structure in those areas — prioritize wind-blown targets.';
+    } else if (isOvercast) {
+        r += ' Overcast flat-light conditions allow bass to roam more freely away from cover. They\'re more willing to chase; push your retrieve speed up slightly and expect strikes away from the obvious structure.';
+    } else if (isBluebird) {
+        r += ' Bright bluebird skies push bass tight to structure and shade. Slow down, fish precisely, and put the bait directly in front of them — they will not chase far.';
+    }
+
+    return r;
+}
+
+// ============================================================
+// INITIALIZE — RENDER ALL GRIDS
+// ============================================================
+
+function init() {
+    fillGrid('grid-month',    MONTHS,   'month',         'month-btn');
+    fillGrid('grid-time',     TIMES,    'timeOfDay',     'time-btn');
+    fillGrid('grid-temp',     TEMPS,    'waterTemp',     'temp-btn');
+    fillGrid('grid-clarity',  CLARITY,  'waterClarity');
+    fillGrid('grid-sky',      SKY,      'skyCondition');
+    fillGrid('grid-wind',     WIND,     'wind');
+    fillGrid('grid-wind-dir', WIND_DIR, 'windDirection');
+    fillGrid('grid-trend',    TREND,    'weatherTrend');
+}
+
+init();
+</script>
+</body>
+</html>
