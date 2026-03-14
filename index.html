@@ -498,6 +498,47 @@
         .btn-reset:hover { border-color: var(--navy); color: var(--navy); background: var(--light); }
         .btn-reset:active { transform: scale(0.98); }
 
+        /* ── LIVESCOPE SECTION ───────────────────────────────────── */
+        .livescope-box {
+            background: linear-gradient(160deg, #0d2233 0%, #0d3340 100%);
+            border-radius: var(--radius);
+            padding: 14px 16px;
+            margin-bottom: 12px;
+            color: rgba(255,255,255,0.9);
+            border: 1px solid rgba(13,115,119,0.35);
+        }
+        .livescope-label {
+            font-size: 9.5px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.1px;
+            color: var(--teal-hover);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .livescope-items {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .livescope-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 9px;
+            font-size: 13px;
+            line-height: 1.55;
+        }
+        .livescope-dot {
+            flex-shrink: 0;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--teal-hover);
+            margin-top: 5px;
+        }
+
         /* ── ACCESSIBILITY ───────────────────────────────────────── */
         .sr-only {
             position: absolute; width: 1px; height: 1px; padding: 0;
@@ -703,6 +744,11 @@
                 <div class="rationale-label">🧠 Why This Works</div>
                 <div class="rationale-text" id="res-rationale"></div>
                 <div class="tag-row" id="res-tags"></div>
+            </div>
+
+            <div class="livescope-box" role="region" aria-label="Livescope guidance">
+                <div class="livescope-label">📡 What to Look For on Your Livescope</div>
+                <div class="livescope-items" id="res-livescope"></div>
             </div>
 
             <button class="btn-reset" onclick="resetTool()" aria-label="Start over with new conditions">
@@ -976,6 +1022,106 @@ function renderResults(rec) {
         tag.textContent = t;
         tagContainer.appendChild(tag);
     });
+
+    // Livescope
+    const livescopeContainer = document.getElementById('res-livescope');
+    livescopeContainer.innerHTML = '';
+    buildLivescopeGuidance(state).forEach(point => {
+        const item = document.createElement('div');
+        item.className = 'livescope-item';
+        item.innerHTML = `<span class="livescope-dot" aria-hidden="true"></span><span>${point}</span>`;
+        livescopeContainer.appendChild(item);
+    });
+}
+
+// ============================================================
+// LIVESCOPE GUIDANCE ENGINE
+// Evaluates existing state — no new inputs required.
+// Returns array of 3–5 plain-language guidance strings.
+// ============================================================
+
+function buildLivescopeGuidance(inputs) {
+    const { waterTemp, timeOfDay, skyCondition, weatherTrend, waterClarity } = inputs;
+
+    const isPostFront   = skyCondition  === 'postFront';
+    const isCooling     = weatherTrend  === 'cooling';
+    const isWarming     = weatherTrend  === 'warming';
+    const isDawn        = timeOfDay     === 'dawn';
+    const isDusk        = timeOfDay     === 'dusk';
+    const isMidday      = timeOfDay     === 'midday';
+    const isBluebird    = skyCondition  === 'bluebird';
+    const isMurky       = waterClarity  === 'stained' || waterClarity === 'muddy';
+    const isMuddy       = waterClarity  === 'muddy';
+
+    const points = [];
+
+    // ── 1. DEPTH / SCAN RANGE + FISH POSTURE (always, temp-driven) ──
+    if (waterTemp === 'below50') {
+        points.push('Set your forward range to 40–60 ft and scan the deepest available structure — channel bends and rocky ledge drops. Fish will be sitting dead on the bottom, showing as motionless marks tight to the contour. They are not going to chase anything; you need to put the bait right on top of them.');
+    } else if (waterTemp === '50-59') {
+        points.push('Set range to 35–50 ft and scan main lake points and the first ledge transitions inside creek arm mouths. Marks will be on or very near the bottom but may shift slightly as fish begin responding to warming. A small amount of vertical movement in a mark is a positive sign — that fish can be caught.');
+    } else if (waterTemp === '60-64') {
+        points.push('Set range to 30–45 ft and target the first hard-bottom points at creek arm mouths. Fish will be elevated 1–4 ft off the bottom compared to winter — still close to structure but beginning to show more active posture. Look for small clusters on transition edges between flat bottom and the first depth drop.');
+    } else if (waterTemp === '65-72') {
+        points.push('Reduce your range to 20–35 ft and scan shallower water inside creek arms. During the spawn, fish will be very shallow — you may see marks in 2–8 ft of water holding nearly stationary over flat hard bottom. A fish that holds position without fleeing as you approach is likely on a bed.');
+    } else if (waterTemp === '73-79') {
+        points.push('Set range to 25–40 ft and scan the first major points and bluff ends just outside spawning coves. Post-spawn fish are more active — look for marks elevated 4–8 ft off the bottom, often loosely grouped rather than stacked tight. These fish are feeding and will react to a bait that crosses their depth zone.');
+    } else if (waterTemp === '80-85') {
+        points.push('Set range to 40–60 ft and work main lake ledges and channel swings. Look for fish clustered 3–8 ft off the bottom on the up-current edge of ledge drops. Baitfish clouds will often appear above them — when you see that layered look (bait on top, bass below), you are on an active school.');
+    } else { // 86+
+        points.push('Set range to 50–70 ft and scan the deepest available channel structure. Marks will be either hugging the bottom tightly on deep ledges or suspended near a thermocline layer — you may see a distinct band where fish stop and hover. Midday fish under dock shade will show as stationary marks in 15–25 ft directly under the dock structure.');
+    }
+
+    // ── 2. BAITFISH RELATIONSHIP (always, temp-driven) ──────────────
+    if (['below50','50-59'].includes(waterTemp)) {
+        points.push('Baitfish will be sparse and not showing much on screen in cold water — do not rely on finding shad schools to locate bass this time of year. Focus on reading the bottom contour itself and finding the structural features where fish stack. A single isolated mark on a channel bend is worth investigating.');
+    } else if (waterTemp === '60-64') {
+        points.push('Baitfish are beginning to move and you may start seeing small scattered clouds on transitions. When you spot bait and bass marks in the same frame, work that area thoroughly — prespawn fish are actively feeding. The bait and bass do not need to be stacked together; bass within 10–15 ft of a bait cloud are in feeding range.');
+    } else if (waterTemp === '65-72') {
+        points.push('During the spawn, baitfish presence matters less than finding fish on structure. If you do see baitfish clouds near flat hard bottom, it signals the area is healthy and worth fishing. Do not let the bait clouds pull you away from shallow hard bottom where beds are likely to be.');
+    } else if (waterTemp === '73-79') {
+        points.push('Baitfish activity is your primary search tool right now. Shad schools will show as hazy, shifting clouds — bass often sit just below or just behind them. If the cloud suddenly scatters and tightens, bass may be pushing through it. Get a bait into the water quickly when you see that behavior.');
+    } else {
+        // 80-85 and 86+
+        points.push('Look for the layered pattern: a diffuse baitfish cloud at mid-depth with denser bass marks below it, especially on ledge edges. When the bait cloud is tight and compact, the school is not active. When it spreads and disperses, the bass are feeding through it — that is your window. Match your bait to the depth of the bass marks, not the bait cloud.');
+    }
+
+    // ── 3. CONDITIONAL MODIFIERS (pick highest priority, max 2) ─────
+    const conditionals = [];
+
+    if (isPostFront) {
+        conditionals.push('Post-front posture: expect every mark to be tighter to the bottom than normal, with almost no vertical movement. Fish that appear to be there will not commit easily. If a mark does not react at all to your bait passing nearby, move on — negative fish will not be coaxed. Focus on the few fish that show any movement.');
+    }
+
+    if (isCooling) {
+        conditionals.push('Cooling trend posture: fish are pulling deeper and compressing tighter to structure. If marks scatter and disappear when your bait approaches rather than turning toward it, you are either too close with the boat or the retrieve is too fast — back off 10 ft and slow everything down.');
+    }
+
+    if (isWarming && !isPostFront) {
+        conditionals.push('Warming trend: fish are elevating and distributing more loosely off structure than the temperature alone suggests. Scan slightly shallower than your target depth first — the active fish may be a few feet higher in the water column than where you expect them. Reaction bait intercepts at their actual depth level are very viable today.');
+    }
+
+    if ((isDawn || isDusk) && !isPostFront) {
+        conditionals.push(`${isDawn ? 'Dawn' : 'Dusk'} window: fish will be shallower than the water temperature suggests. Before scanning your main depth targets, make a few passes over shallower banks and points — 5–12 ft. You may find fish elevated and aggressive in water you would otherwise skip. This window is short; do not spend it looking.`);
+    }
+
+    if (isMidday && isBluebird) {
+        conditionals.push('Midday bluebird: scan dock structures and bluff walls first. Fish will be pushed tight to any available shade, showing as stationary marks at 10–20 ft directly under or against the shaded structure. Approach slowly — these fish spook easily and will not return once they blow off the dock.');
+    }
+
+    if (isMurky) {
+        conditionals.push(`${isMuddy ? 'Muddy' : 'Stained'} water: reduce your forward range to 25–35 ft for a cleaner, higher-resolution image. Fish marks will still be visible but baitfish clouds will be harder to distinguish. Rely more on reading individual fish marks and less on bait-school activity. Your Livescope is still useful — just trust the individual marks.`);
+    }
+
+    // Add up to 2 conditionals
+    conditionals.slice(0, 2).forEach(c => points.push(c));
+
+    // ── 4. UNIVERSAL GUIDANCE (always included, last 2 points) ──────
+    points.push('If a mark turns toward your bait and follows it, slow your retrieve — do not speed up. The fish is interested. Speeding up breaks the illusion and triggers a refusal. Let it close the distance on its own terms.');
+    points.push('If a fish surges toward the bait and the mark suddenly disappears from the screen, set the hook immediately — do not wait to feel it. That fish ate. The mark disappears because it has turned away with the bait in its mouth.');
+
+    // Return max 5 points
+    return points.slice(0, 5);
 }
 
 // ============================================================
